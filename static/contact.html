@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Contact Us - MedNexus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="./components/header.js" type="module"></script>
+  <script src="./components/footer.js" type="module"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top right, #000000, #0a0f1f);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      background: rgba(10, 15, 31, 0.85);
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 40px;
+      background-image: linear-gradient(#0a0f1f, #0a0f1f),
+        linear-gradient(90deg, #00aaff, #8660ba);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      box-shadow: 0 0 25px rgba(134, 96, 186, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      background: linear-gradient(90deg, #00aaff, #8660ba);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+      color: #b3c0d4;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 6px;
+      border: 1px solid rgba(134, 96, 186, 0.3);
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-size: 15px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #00aaff;
+      box-shadow: 0 0 8px rgba(0, 170, 255, 0.4);
+    }
+
+    .btn-outline {
+      width: 100%;
+      margin-top: 30px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: #00aaff;
+      background-color: transparent;
+      border: 2px solid transparent;
+      cursor: pointer;
+      background-image: linear-gradient(#0a0f1f, #0a0f1f),
+        linear-gradient(90deg, #00aaff, #8660ba);
+      background-origin: border-box;
+      background-clip: padding-box, border-box;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      color: #fff;
+      background-image: linear-gradient(90deg, #00aaff, #8660ba);
+      box-shadow: 0 0 15px rgba(134, 96, 186, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .info {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 15px;
+      color: #b3c0d4;
+      line-height: 1.8;
+    }
+
+    .info a {
+      color: #00aaff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .info a:hover {
+      color: #8660ba;
+    }
+  </style>
+</head>
+<body>
+  <med-header></med-header>
+
+  <div class="container">
+    <h1>Contact Us</h1>
+    <form action="mailto:info@mednexus.com" method="post" enctype="text/plain">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit" class="btn-outline">Send Message</button>
+    </form>
+
+    <div class="info">
+      <p>Email: <a href="mailto:info@mednexus.com">info@mednexus.com</a></p>
+      <p>Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+      <p>Address: 123 MedNexus Ave, Health City, Country</p>
+    </div>
+  </div>
+
+  <med-footer></med-footer>
+</body>
+</html>

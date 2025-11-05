@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MedNexus Data Reports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="./components/header.js" type="module"></script>
+  <script src="./components/footer.js" type="module"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0f1f;
+      color: #fff;
+    }
+
+    .btn-logout {
+      background: linear-gradient(90deg, #00aaff, #8660ba);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 18px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-logout:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 15px rgba(134, 96, 186, 0.5);
+    }
+
+    .page-container {
+      padding: 60px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 25px;
+      background: linear-gradient(90deg, #00aaff, #8660ba);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0e162b;
+      padding: 15px 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 0 15px rgba(0, 170, 255, 0.1);
+    }
+
+    .filter-bar input {
+      width: 250px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 170, 255, 0.3);
+      background: #121b36;
+      color: #fff;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .filter-bar input:focus {
+      border-color: #00aaff;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0, 170, 255, 0.5);
+    }
+
+    .filter-bar select {
+      background: #121b36;
+      color: #fff;
+      border: 1px solid rgba(0, 170, 255, 0.3);
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 0.95rem;
+    }
+
+    .data-box {
+      background: #0e162b;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0 25px rgba(0, 170, 255, 0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 15px;
+    }
+
+    th {
+      background-color: #14213d;
+      color: #00aaff;
+      border-bottom: 1px solid #223b5f;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #101830;
+    }
+
+    tr:hover {
+      background-color: #182445;
+      transition: background 0.2s ease;
+    }
+
+    td {
+      color: #dbe3f1;
+    }
+
+    @media (max-width: 900px) {
+      .page-container {
+        padding: 30px;
+      }
+
+      .filter-bar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .filter-bar input, .filter-bar select {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <med-header></med-header>
+  <div class="page-container">
+    <h1>Patient Analysis Reports</h1>
+
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="🔍 Search by Patient ID or Name...">
+      <select id="filterSelect">
+        <option value="all">All Types</option>
+        <option value="MRI">MRI</option>
+        <option value="CT">CT</option>
+        <option value="X-Ray">X-Ray</option>
+        <option value="Ultrasound">Ultrasound</option>
+      </select>
+    </div>
+
+    <div class="data-box">
+      <table id="reportTable">
+        <thead>
+          <tr>
+            <th>Patient ID</th>
+            <th>Name</th>
+            <th>Scan Type</th>
+            <th>Result</th>
+            <th>Confidence</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>#PX-2025-030</td>
+            <td>Elif Arslan</td>
+            <td>MRI</td>
+            <td>Benign</td>
+            <td>95.6%</td>
+            <td>09 Oct 2025</td>
+          </tr>
+          <tr>
+            <td>#PX-2025-031</td>
+            <td>Ahmet Kaya</td>
+            <td>CT</td>
+            <td>Malignant</td>
+            <td>91.3%</td>
+            <td>09 Oct 2025</td>
+          </tr>
+          <tr>
+            <td>#PX-2025-032</td>
+            <td>Deniz Yılmaz</td>
+            <td>X-Ray</td>
+            <td>Normal</td>
+            <td>98.9%</td>
+            <td>08 Oct 2025</td>
+          </tr>
+          <tr>
+            <td>#PX-2025-033</td>
+            <td>Selin Demir</td>
+            <td>Ultrasound</td>
+            <td>Inconclusive</td>
+            <td>87.4%</td>
+            <td>08 Oct 2025</td>
+          </tr>
+          <tr>
+            <td>#PX-2025-034</td>
+            <td>Ali Koç</td>
+            <td>MRI</td>
+            <td>Benign</td>
+            <td>93.2%</td>
+            <td>07 Oct 2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <med-footer></med-footer>
+  <script>
+    // logout handler
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "login.html";
+    }
+
+    // search filter
+    const searchInput = document.getElementById('searchInput');
+    const filterSelect = document.getElementById('filterSelect');
+    const table = document.getElementById('reportTable');
+    const rows = table.getElementsByTagName('tr');
+
+    function filterTable() {
+      const searchValue = searchInput.value.toLowerCase();
+      const filterValue = filterSelect.value;
+      for (let i = 1; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const id = cells[0].textContent.toLowerCase();
+        const name = cells[1].textContent.toLowerCase();
+        const type = cells[2].textContent;
+
+        const matchesSearch = id.includes(searchValue) || name.includes(searchValue);
+        const matchesFilter = filterValue === "all" || type === filterValue;
+
+        if (matchesSearch && matchesFilter) {
+          rows[i].style.display = "";
+        } else {
+          rows[i].style.display = "none";
+        }
+      }
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    filterSelect.addEventListener('change', filterTable);
+  </script>
+</body>
+</html>
