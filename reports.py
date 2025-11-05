@@ -1,4 +1,4 @@
-from .models import Patient, Report
+from models import Patient, Report
 from sqlalchemy.orm import Session
 from . import schemas
 
