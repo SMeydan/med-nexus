@@ -1,27 +1,45 @@
-name: CI
+name: build-test
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
 
-    - name: Install deps
-      run: pip install -r requirements.txt
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Run
-      run: pm2 start "uvicorn main:app --host 0.0.0.0 --port 8000" --name mednexus
+      - name: Install Node + PM2
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y nodejs npm
+          sudo npm install -g pm2
+          echo "$(npm prefix -g)/bin" >> $GITHUB_PATH
 
+      - name: Start Uvicorn with PM2
+        run: |
+          pm2 start "uvicorn main:app --host 0.0.0.0 --port 8080" --name mednexus
+          sleep 5
+          pm2 list
+          pm2 logs mednexus --lines 10
+
+      - name: Health check
+        run: curl -f http://127.0.0.1:8080 || exit 1
+
+      - name: Stop PM2
+        run: pm2 delete all
