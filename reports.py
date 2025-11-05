@@ -1,6 +1,6 @@
-from models import Patient, Report
+from .models import Patient, Report
 from sqlalchemy.orm import Session
-from . import schemas
+from schemas import ReportCreate, ReportUpdate
 
 def get_reports_by_patient(db: Session, patient_id: int):
     return db.query(Report).filter(
@@ -8,14 +8,14 @@ def get_reports_by_patient(db: Session, patient_id: int):
         Report.is_active == True
     ).all()
 
-def create_report(db: Session, report: schemas.ReportCreate):
+def create_report(db: Session, report: ReportCreate):
     db_report = Report(patient_id=report.patient_id, content=report.content)
     db.add(db_report)
     db.commit()
     db.refresh(db_report)
     return db_report
 
-def update_report(db: Session, report_id: int, report: schemas.ReportUpdate):
+def update_report(db: Session, report_id: int, report: ReportUpdate):
     db_report = db.query(Report).filter(Report.id == report_id).first()
     if not db_report:
         return None
