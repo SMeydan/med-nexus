@@ -39,6 +39,7 @@ def patient_detail(patient_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Patient not found")
     return patient
 
+
 # Create Patient
 @app.post("/create-patient", response_model=PatientResponse)
 def create_patient(req: PatientCreate, db: Session = Depends(get_db)):
