@@ -7,6 +7,7 @@ from models import Base
 from schemas import PatientBase, ReportResponse, AskRequest, AnalyzeRequest, PatientResponse, PatientCreate, PatientUpdate, ReportCreate, ReportUpdate
 from patients import get_patients, get_patient, create_patient, update_patient, soft_delete_patient
 from reports import get_reports_by_patient, create_report, update_report, soft_delete_report
+
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
 
