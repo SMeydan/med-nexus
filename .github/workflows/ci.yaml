@@ -14,9 +14,43 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Start Uvicorn with PM2
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
         run: |
-          pm2 start "uvicorn main:app --host 0.0.0.0 --port 8080" --name mednexus
-          sleep 5
-          pm2 list
-          pm2 logs mednexus --lines 10
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            echo "⚠️ No requirements.txt found, skipping dependency install."
+          fi
+
+      - name: Ensure PM2 is installed
+        run: |
+          if ! command -v pm2 &> /dev/null; then
+            echo "PM2 not found. Installing..."
+            sudo apt update -y
+            sudo apt install -y nodejs npm
+            sudo npm install -g pm2
+            echo "/usr/local/bin" >> $GITHUB_PATH
+          else
+            echo "✅ PM2 already installed."
+          fi
+
+      - name: Start or Restart FastAPI with PM2
+        run: |
+          cd ${{ github.workspace }}
+          if pm2 list | grep -q mednexus; then
+            echo "Restarting existing PM2 process..."
+            pm2 restart mednexus
+          else
+            echo "Starting new PM2 process..."
+            pm2 start "uvicorn main:app --host 0.0.0.0 --port 8080" --name mednexus
+            pm2 save
+          fi
+
+      - name: Check PM2 Status
+        run: pm2 list
