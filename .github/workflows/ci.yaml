@@ -16,14 +16,8 @@ jobs:
 
       - name: Install Python dependencies (safe for Debian 12)
         run: |
-          cd ..
-          cd ..
-          cd ..
-          source venv/bin/activate
-          cd actions-runner/
-          cd _work/
-          cd med-nexus/ 
-          cd med-nexus/
+          source /home/shitshowinmypanties/venv/bin/activate
+          cd med-nexus/med-nexus/
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           else
