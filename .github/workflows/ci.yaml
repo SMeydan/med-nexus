@@ -13,17 +13,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-        
-      - name: Create and activate virtualenv
-        run: |
-          sudo apt update -y
-          sudo apt install -y python3-venv
-          python3 -m venv venv
 
       - name: Install Python dependencies (safe for Debian 12)
         run: |
-          . venv/bin/activate
-          python -m pip install --upgrade pip
+          source venv/bin/activate
+          cd med-nexus/ cd med-nexus/
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           else
@@ -49,7 +43,7 @@ jobs:
             pm2 restart mednexus
           else
             echo "Starting new PM2 process..."
-            pm2 start "$(pwd)/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8080" --name mednexus
+            pm2 start "uvicorn main:app --host 0.0.0.0 --port 8080" --name mednexus
             pm2 save
           fi
 
