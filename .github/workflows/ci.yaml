@@ -16,8 +16,14 @@ jobs:
 
       - name: Install Python dependencies (safe for Debian 12)
         run: |
+          cd ..
+          cd ..
+          cd ..
           source venv/bin/activate
-          cd med-nexus/ cd med-nexus/
+          cd actions-runner/
+          cd _work/
+          cd med-nexus/ 
+          cd med-nexus/
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           else
@@ -36,8 +42,6 @@ jobs:
 
       - name: Start or Restart FastAPI with PM2
         run: |
-          cd ${{ github.workspace }}
-          . venv/bin/activate
           if pm2 list | grep -q mednexus; then
             echo "Restarting existing PM2 process..."
             pm2 restart mednexus
